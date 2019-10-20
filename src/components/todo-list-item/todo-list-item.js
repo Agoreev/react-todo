@@ -7,18 +7,22 @@ export default class TodoListItem extends Component {
     important: false
   };
   onLabelClick = () => {
-    this.setState({
-      done: !this.state.done
+    this.setState(state => {
+      return {
+        done: !state.done
+      };
     });
   };
   onMarkImportant = () => {
-    this.setState({
-      important: !this.state.important
+    this.setState(state => {
+      return {
+        important: !state.important
+      };
     });
   };
 
   render() {
-    const { label } = this.props;
+    const { label, onDeleted } = this.props;
     const { done, important } = this.state;
 
     let classNames = "todo-list-item d-flex";
@@ -45,7 +49,11 @@ export default class TodoListItem extends Component {
         >
           <i className="fa fa-exclamation"></i>
         </button>
-        <button type="button" className="btn btn-outline-danger btn-sm">
+        <button
+          type="button"
+          className="btn btn-outline-danger btn-sm"
+          onClick={onDeleted}
+        >
           <i className="fa fa-trash-o"></i>
         </button>
       </span>
