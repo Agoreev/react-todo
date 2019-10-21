@@ -1,3 +1,9 @@
 .add-item-form {
   margin: 1rem 0;
 }
+.add-item-form button {
+  white-space: nowrap;
+}
+.add-item-form input {
+  margin-right: 3px;
+}
