@@ -6,10 +6,11 @@ export default class ItemStatusFilter extends Component {
     this.props.onChangeFilter(e.target.id);
   };
 
+  filters = ["all", "done", "active"];
+
   render() {
-    const filters = ["all", "done", "active"];
     const { currentFilter } = this.props;
-    const elements = filters.map(filter => {
+    const elements = this.filters.map(filter => {
       const classNames =
         filter === currentFilter ? "btn btn-info" : "btn btn-outline-secondary";
       return (

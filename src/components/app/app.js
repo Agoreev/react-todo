@@ -16,7 +16,7 @@ export default class App extends Component {
       this.createTodoItem("Have a lunch")
     ],
     search: "",
-    currentFilter: "all"
+    currentFilter: "active"
   };
 
   createTodoItem(label) {
@@ -79,23 +79,30 @@ export default class App extends Component {
     });
   };
 
+  search(items, searchString) {
+    if (searchString.length === 0) {
+      return items;
+    }
+    const lowerSearch = searchString.toLowerCase();
+    return items.filter(el => el.label.toLowerCase().includes(lowerSearch));
+  }
+
+  filter(items, currentFilter) {
+    switch (currentFilter) {
+      case "all":
+        return items;
+      case "done":
+        return items.filter(el => el.done);
+      case "active":
+        return items.filter(el => !el.done);
+      default:
+        return items;
+    }
+  }
+
   render() {
     const { todoData, search, currentFilter } = this.state;
-    const lowerSearch = search.toLowerCase();
-    const data = todoData
-      .filter(el => el.label.toLowerCase().includes(lowerSearch))
-      .filter(el => {
-        switch (currentFilter) {
-          case "all":
-            return true;
-          case "done":
-            return el.done;
-          case "active":
-            return el.done !== true;
-          default:
-            return true;
-        }
-      });
+    const data = this.filter(this.search(todoData, search), currentFilter);
     const doneCount = todoData.filter(el => el.done).length;
     const todoCount = todoData.length - doneCount;
     return (
